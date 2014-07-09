@@ -1,0 +1,10 @@
+name: TestPlugin
+main: io.github.twipsta.testplugin.TestPlugin
+version: 0.1
+
+commands:
+  hello:
+    description: My first command!
+  
+  ptime:
+    description: Played Time!

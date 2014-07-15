@@ -15,10 +15,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class TestPlugin extends JavaPlugin implements Listener {
 	long[] login = new long[32]; 
+	onlinePlayers[] onlinePlayers = new onlinePlayers[4];
 	
 	public void onEnable(){
 		getLogger().info("Hello World!");
 		getServer().getPluginManager().registerEvents(this, this);
+		
+		onlinePlayers[0].name = "twipsta";
+		onlinePlayers[0].totalCredits = (double) 1337;
+				
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(sender instanceof Player){
@@ -27,6 +32,21 @@ public class TestPlugin extends JavaPlugin implements Listener {
 			} 
 			else if(cmd.getName().equalsIgnoreCase("ptime")){
 				sender.sendMessage(ChatColor.YELLOW + "Session Time: " + ChatColor.RED + getTime(0));
+			}
+			else if(cmd.getName().equalsIgnoreCase("addplayer")) {
+				int pos = 0;
+				int totalCredits = 0;
+				String name = null;
+				try {
+					name = args[1];
+					pos = Integer.parseInt(args[0]);
+					totalCredits = Integer.parseInt(args[2]);
+				} catch (NumberFormatException e) {
+					sender.sendMessage("Invalid ID or ammount specified");
+				}
+				onlinePlayers[pos].name = name;
+				onlinePlayers[pos].totalCredits = (double) totalCredits;
+				sender.sendMessage("Added " + onlinePlayers[pos].name + "to online players with " + onlinePlayers[pos].totalCredits + ", at index " + pos);
 			}
 		}
 		else{

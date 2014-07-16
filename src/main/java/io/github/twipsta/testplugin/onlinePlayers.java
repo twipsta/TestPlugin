@@ -8,11 +8,7 @@ public class onlinePlayers {
 	Long lastOnline;
 	
 	public onlinePlayers() {
-		this.name = null;
-		this.logonTime = null;
-		this.totalCredits = null;
-		this.lastTopUp = null;
-		this.lastOnline = null;
+
 	}
 
 	public onlinePlayers(String name, long logonTime, double totalCredits, long lastTopUp, long lastOnline) {
@@ -37,6 +33,10 @@ public class onlinePlayers {
 	
 	public void setTotalCredits(double totalCredits) {
 		this.totalCredits = totalCredits;
+	}
+	
+	public long getSessionTime() {
+		return this.logonTime;
 	}
 	
 }

@@ -8,3 +8,12 @@ commands:
   
   ptime:
     description: Played Time!
+    
+  addplayer:
+    description: Add a player!    
+
+  getplayer:
+    description: Gets a player!
+
+  getplayers:
+    description: Gets all the a player!

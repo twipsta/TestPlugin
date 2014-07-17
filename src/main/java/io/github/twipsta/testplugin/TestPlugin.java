@@ -20,8 +20,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TestPlugin extends JavaPlugin implements Listener {
-	File playerConfigFile = new File(getDataFolder(),"players.yml");
-	YamlConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
+	File playerConfigFile;
+//	YamlConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
+	YamlConfiguration playerConfig;
 	
 	Long login; 
 	List<onlinePlayers> playerList = new ArrayList<onlinePlayers>();
@@ -29,12 +30,15 @@ public class TestPlugin extends JavaPlugin implements Listener {
 	public void onEnable(){
 		getServer().getPluginManager().registerEvents(this, this);
 		
+		setupConfigs();
+		
 		Player[] alreadyOnline = getServer().getOnlinePlayers(); 
 		if(alreadyOnline.length > 0){
 			getServer().getConsoleSender().sendMessage("[DLNC Whitelist] " + ChatColor.YELLOW + "People are already online!");
 			playerMethods.reloadAddPlayers(playerList);
 		}		
 	}
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(sender instanceof Player){
 			if(cmd.getName().equalsIgnoreCase("hello")){
@@ -198,6 +202,16 @@ public class TestPlugin extends JavaPlugin implements Listener {
 				}
 			}
 		}
+	}
+
+	private void setupConfigs() {
+		if(!getDataFolder().exists()) {
+			getLogger().info("No config folder found, creating one now");
+			getDataFolder().mkdir();
+		}
+		
+		playerConfigFile = new File(getDataFolder(),"players.yml");
+		playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
 		
 	}
 
